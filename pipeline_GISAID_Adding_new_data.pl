@@ -1,0 +1,123 @@
+#!/usr/bin/env perl -w
+# (Copyright) Jiaqi Wu
+use diagnostics;
+use 5.010;
+use strict;
+use Cwd;
+use Getopt::Std;
+use File::Copy;
+
+my %opts;
+getopts('i:j:s:t:o:', \%opts);
+my $input_fasta_sequence = $opts{'i'} or die "use: $0 -i input_fasta_sequence -j input_metadata -s input_old_name2ID -t input_old_raw_variants -o output_file_name\n";
+my $input_metadata = $opts{'j'} or die "use: $0 -i input_fasta_sequence -j input_metadata -s input_old_name2ID -t input_old_raw_variants -o output_file_name\n";
+my $input_old_name2ID = $opts{'s'} or die "use: $0 -i input_fasta_sequence -j input_metadata -s input_old_name2ID -t input_old_raw_variants -o output_file_name\n";
+my $input_old_raw_variants = $opts{'t'} or die "use: $0 -i input_fasta_sequence -j input_metadata -s input_old_name2ID -t input_old_raw_variants -o output_file_name\n";
+my $output_file_name = $opts{'o'} or die "use: $0 -i input_fasta_sequence -j input_metadata -s input_old_name2ID -t input_old_raw_variants -o output_file_name\n";
+
+my $input_reference_genome = "NC_045512.fas";
+my $input_reference_cds = "NC_045512.cds.Exc1ab.overlapAdded.fas";
+
+if (!(-e $input_fasta_sequence)){
+	print "ERROR! Could not find input_fasta_sequence: $input_fasta_sequence, please check...\nExit...\n";
+	exit();
+} else {
+	my $file_check = `gzip -t -v $input_fasta_sequence 2>&1`;
+	print "Sequence file check: \n$file_check###\n";
+	if ($file_check =~ /NOT\sOK/){
+		print "ERROR! $input_fasta_sequence is incomplete!\nPlease check your file!\nExit...\n";
+		exit();
+	}
+}
+
+if (!(-e $input_metadata)){
+	print "ERROR! Could not find input_metadata: $input_metadata, please check...\nExit...\n";
+	exit();
+} else {
+	my $file_check = `gzip -t -v $input_metadata 2>&1`;
+	print "Metadata file check: \n$file_check###\n";
+	if ($file_check =~ /NOT\sOK/){
+		print "ERROR! $input_metadata is incomplete!\nPlease check your file!\nExit...\n";
+		exit();
+	}
+}
+
+if (!(-e $input_reference_genome)){
+	print "ERROR! Could not find input_reference_genome: $input_reference_genome, please check...\nexit()...\n";
+	exit();
+}
+
+if (!(-e $input_reference_cds)){
+	print "ERROR! Could not find input_reference_cds: $input_reference_cds, please check...\nexit()...\n";
+	exit();
+}
+
+if (!(-e $input_old_name2ID)){
+	print "ERROR! Could not find input_old_name2ID: $input_old_name2ID, please check...\nexit()...\n";
+	exit();
+}
+
+if (!(-e $input_old_raw_variants)){
+	print "ERROR! Could not find input_old_raw_variants: $input_old_raw_variants, please check...\nexit()...\n";
+	exit();
+}
+
+my $options;
+open OPT, ">$output_file_name.options.txt";
+print "Step1, make name2ID file\n";
+$options = "perl name2ID.pl -i $input_metadata -o $output_file_name.name2ID";
+print "$options\n\n";
+print OPT "$options\n";
+system $options;
+
+print "Step2, get newly added name2ID file\n";
+$options = "perl newly_added_name2ID.pl -i $input_old_name2ID -j $output_file_name.name2ID.txt -o $output_file_name.NewlyAdded.name2ID";
+print "$options\n\n";
+print OPT "$options\n";
+system $options;
+
+print "Step3, extract raw variations from fasta sequence file\n";
+$options = "perl alignment2varients_no_screen_linux.pl -i $input_fasta_sequence -j $output_file_name.NewlyAdded.name2ID.txt -r $input_reference_genome -o $output_file_name.newly_added";
+print "$options\n\n";
+print OPT "$options\n";
+system $options;
+
+print "Step4, get merged raw variations for both new and old raw_variants file\n";
+$options = "cat $output_file_name.newly_added.raw_variants.for_each.all.txt $input_old_raw_variants > $output_file_name.raw_variants.for_each.all.txt";
+print "$options\n\n";
+system $options;
+
+print "Step5, screening raw variations\n";
+$options = "perl screen_summzrize_data_del_int.pl -i $output_file_name.raw_variants.for_each.all.txt -o $output_file_name";
+print "$options\n\n";
+print OPT "$options\n";
+system $options;
+
+print "Step4, map snps to cds\n";
+$options = "perl MapProtein_SARS2_aa_RNA_nsp_indel.pl -i $output_file_name.screen.ID.sum.txt -o $output_file_name";
+print "$options\n\n";
+print OPT "$options\n";
+system $options;
+
+print "Step5, move genome-wide snps, codons and amino acid variations into genomic_variation folder\n";
+my $genomic_variation_folder = $output_file_name."_genomic_variation";
+if (!(-e $genomic_variation_folder)){
+	mkdir "$genomic_variation_folder";
+} else {
+	system "rm ./$genomic_variation_folder/*.txt";
+}
+move("$output_file_name.screen.ID.sum.txt","./$genomic_variation_folder/snp.txt");
+move("$output_file_name.all_info_ID.aa.sum.txt","./$genomic_variation_folder/aa.txt");
+move("$output_file_name.all_info_ID.Codon.sum.txt","./$genomic_variation_folder/codon.txt");
+
+print "step6, generate long tables for genomic variations";
+$options = "perl variation_unique_ID_sum.pl -i $genomic_variation_folder";
+print "$options\n\n";
+print OPT "$options\n";
+system $options;
+
+print "step7, calculate quality statistics of each sequence";
+$options = "perl raw_data_statistics.pl -i $output_file_name.raw_variants.for_each.all.txt";
+print "$options\n\n";
+system $options;
+
