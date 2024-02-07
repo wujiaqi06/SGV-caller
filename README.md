@@ -1,7 +1,7 @@
 # SGV-caller
 SGV-caller: SARS-CoV-2 genome variation caller
 
-1.Dependency
+## 1. Dependency
 
 Please install MAFFT (MAFFT: PMID: 12136088) beforehand. If your MAFFT software was not installed into system, please set path for it first by:
 export PATH=$PATH:/path/to/the/folder/where/MAFFT/installed
@@ -12,11 +12,11 @@ Please download the software from https://github.com/wujiaqi06/SGV-caller.
 You can also get it by running:
 git clone https://github.com/wujiaqi06/SGV-caller.git
 
-2.What can it do
+## 2. What can it do
 
 The function of this pipeline is to extract the nucleotide, amino acid and codon level variations of SARS-CoV-2 genomes. It is easy to use and the data structure is also very simple, and anyone using this pipeline can have your own local database of SARS-CoV-2 genomes.
 
-2.1 GISAID Genomic epidemiology Data
+### 2.1 GISAID Genomic epidemiology Data
 
 Please download genomic data and metadata from the GISAID database from "Genomic epidemiology". The downloaded file can be directly read by the software without unzipping them. The easiest way to run the software is to do:
 
@@ -30,7 +30,7 @@ gzip input_metadata
 
 output_file_name: character, underbar or number without any space.
 
-2.2 Custom data
+### 2.2 Custom data
 
 You can also run the pipeline using custom data. It could be the data downloaded from NCBI, or obtained by your own experiments. In this case, you need two steps to run the pipeline. 
 Step 1, obtain the name2ID file.
@@ -42,7 +42,7 @@ You can also generate a name2ID file by yourself.
 Step 2, run the pipeline
 perl pipeline_GISAID_from_name2ID.pl -i input_fasta_sequence.gz -j input_name2id -o output_file_name
 
-3. main outputs
+## 3. main outputs
 
 The 3 major directories:
 output_aa: variations at the amino acid level of each gene and genomes
@@ -81,10 +81,10 @@ output_name2ID.txt shows a pair of sequence names and GISAID ID for each sequenc
 <Notice> another pipeline "pipeline_GISAID_Adding_new_data.pl", which adds the new sequences to an already existing database, needs output.raw_variants.for_each.all.txt and "output_name2ID.txt" file as input files. Please keep these two files carefully every time.
 Details of each softwares in the pipeline
 
-4. The function of each software
+## 4. The function of each software
  
-4.1 The function of each software in this pipeline are as follows:
-Step 1, name2ID.pl
+### 4.1 The function of each software in this pipeline are as follows:
+#### Step 1. name2ID.pl
 
 Function: 
 generating a list of sequence names and GISAID ID from metadata.
@@ -119,7 +119,7 @@ OU085641	OU085641
 ...
 ///
 
-Step 2, alignment2varients_no_screen_linux.pl
+#### Step 2. alignment2varients_no_screen_linux.pl
 
 Function: 
 Extracts all variations of each sequence based on the one-to-one pairwise alignment between target and reference sequences.
@@ -133,7 +133,7 @@ reference: reference genome, usually "NC_045512.2.fas"
 
 The output file is saved in "output_file.variations.info.sum.txt".
 
-Step 3, alignment2varients_extract_genes.pl
+#### Step 3. alignment2varients_extract_genes.pl
 Function:
 This perl software is similar to alignment2varients_no_screen_linux.pl, but it also reads gene annotation file (e.g. "gene_anno"), and extract genes of each sequences in input_fasta based on the genetic regions as mentioned in gene_anno file.
 The output sequence files are in fasta format, and are saved in {output_file}_gene folder
@@ -157,7 +157,7 @@ N	28274	29533
 ORF10	29558	29674
 ///
 
-step 4. screen_summzrize_data_del_int.pl
+#### Step 4. screen_summzrize_data_del_int.pl
 
 function:
 Screens the raw variation file, and generates a summarized haplotype file, which can be used as an input file for MapProtein_SARS2_aa_RNA_nsp_indel.pl.
@@ -166,7 +166,7 @@ use:
 perl screen_summzrize_data_del_int.pl -i input_variants_file -o output_file
 Filters output_file.variations.info.sum.txt file by removing ID without date information, and output screened variations in "output_file.screen.ID.sum.txt" file.
 
-Step 5, MapProtein_SARS2_aa_RNA_nsp_indel.pl
+#### Step 5. MapProtein_SARS2_aa_RNA_nsp_indel.pl
 use:
 perl MapProtein_SARS2_aa_RNA_nsp_indel.pl -i input_vari_info_file -o output_folder
 
@@ -186,7 +186,7 @@ haplotypes	number_of_sequence_carry_such_haplotypes	sequence_id1|sequence_id2|se
 
 You can change the content of "NC_045512.cds.Exc1ab.overlapAdded.fas" by adding or removing genes. Pay attention that the sequence location, and the sequence of genes should exactly march its annotation.
 
-Step 6, variation_unique_ID_sum.pl
+#### Step 6. variation_unique_ID_sum.pl
 use: perl variation_unique_ID_sum.pl -i input_vari_info_folder
 
 This perl software calculates variations stored in the input directory and generates 3 output files in “input_vari_info_folder”.
@@ -195,16 +195,16 @@ ID_unique shows that duplicated IDs are removed in the input folder.
 var_for_each_ID summarizes haplotypes for each sequence.
 long_table is very friendly to be used by R programming.
 
-5. Other pipelines
+## 5. Other pipelines
 
-1, pipeline_GISAID_from_name2ID.pl
+#### Pipeline 1. pipeline_GISAID_from_name2ID.pl
 use:
 perl pipeline_GISAID_from_name2ID.pl -i input_fasta_sequence -j input_name2id -o output_file_name
 
 This pipeline works when you have already prepared a name2ID file, and it starts from a name2ID file.
 This pipeline would be useful if you want to handle your own sequence, or you want to analyze sequences from GenBank.
 
-2, pipeline_GISAID_Adding_new_data.pl
+#### Pipeline 2. pipeline_GISAID_Adding_new_data.pl
 use:
 perl use: pipeline_GISAID_Adding_new_data.pl -i input_fasta_equence -j input_metadata -s input_old_name2ID -t input_old_raw_variants -o output_file_name
 
@@ -212,20 +212,20 @@ This pipeline analyzes the sequences that are newly added into the database usin
 
 This is recommended for updating the variations called from the GISAID database.
 
-3, pipeline_sars2_variations_from_raw_variances.pl
+#### Pipeline 3. pipeline_sars2_variations_from_raw_variances.pl
 use: 
 perl pipeline_sars2_variations_from_raw_variances.pl -i input_raw_variants_file
 
 This pipeline starts from the raw_variants file. 
 
-4, pipeline_GISAID_from_Fasta.pl
+#### Pipeline 4. pipeline_GISAID_from_Fasta.pl
 use: 
 perl pipeline_GISAID_from_Fasta.pl -i input_fasta_sequence -o output_file_name
 
 This pipeline takes zipped fasta files as input files.
 It is suitable in the case you do not hope to change the sequence names in fasta files. 
 
-5, pipeline_select_sequence.pl
+#### Pipeline 5. pipeline_select_sequence.pl
 use: 
 perl pipeline_select_sequence.pl -i input_fasta_gz -j input_name2ID -s selected_id -o output_fasta
 
@@ -240,7 +240,7 @@ EPI_ISL_2626633
 EPI_ISL_1610990
 ...
 ///
-6. Examples
+#### 6. Examples
 1, run the pipeline from fasta file (zipped) and metadata file (zipped) using GISAID Genomic epidemiology Data.
 perl pipeline_GISAID_from_fasta_metadata.pl -i gisaid_input_fasta.fas.gz -j gisaid_metadata.tsv.gz -o output
 
