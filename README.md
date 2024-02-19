@@ -23,7 +23,7 @@ export PATH=$PATH:/path/to/the/directory/where/MAFFT/installed
 ```
 git clone https://github.com/wujiaqi06/SGV-caller.git
 ```
-	The SGV-caller is Perl software, which does not need compilation. First, you have to set the path to the directory of the SGV-caller as follows:
+  The SGV-caller is Perl software, which does not need compilation. First, you have to set the path to the directory of the SGV-caller as follows:
 ```
 chmod 777 /path/to/the/directory/where/sgv-caller/installed/sgv-caller.pl
 export PATH=$PATH:/path/to/the/directory/where/sgv-caller/installed
