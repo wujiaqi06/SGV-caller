@@ -14,7 +14,7 @@ If you use Mac, you can use [brew](https://brew.sh/) to install it:
 ```
 brew install mafft
 ```
-If you want to install using the source code of the MAFFT suite, you can install it by following the guidance of MAFFT official website (https://mafft.cbrc.jp/). If this is the case, please set the path to the binary file of MAFFT programs by:
+If you want to install using the source code of the MAFFT suite, you can install it by following the guidance of [MAFFT](https://mafft.cbrc.jp/). If this is the case, please set the path to the binary file of MAFFT programs by:
 ```
 export PATH=$PATH:/path/to/the/directory/where/MAFFT/installed
 ```
