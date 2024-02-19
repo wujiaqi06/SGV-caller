@@ -97,62 +97,62 @@ Non_Coding_S_ORF3a	25385..25392
 
 #### Pipeline 1. Making a SGV database start from FASTA sequence and metadata downloaded from GISAID. 
 ```
-	calculation = 1
-	input_GISAID_fasta_genome_file = input_fasta_data_file
-	input_GISAID_metadata_file = input_metadata_file
+calculation = 1
+input_GISAID_fasta_genome_file = input_fasta_data_file
+input_GISAID_metadata_file = input_metadata_file
 ```
   Calculation 1 calculates the local database from the GISAID FASTA sequence data file and metadata file, which are specified by “input_GISAID_fasta_genome_file” and “input_GISAID_metadata_file”. Either data downloaded from “Genomic epidemiology" or "Download packages" can be used directly without unzipping. The GISAID ID, rather than sequence name will be used as sequence identifier in this calculation.
 
 #### Pipeline 2. Updating existing database with newly downloaded data from GISAID.
 ```
-	calculation = 2
-	directory_of_previous_database = directory_of_existing_SGV_database
-	output_file_name_of_previous_database = output_file_name_of_previous_run
-	input_new_GISAID_fasta_genome =	input_fasta_data_file
-	input_new_GISAID_metadata = input_metadata_file
+calculation = 2
+directory_of_previous_database = directory_of_existing_SGV_database
+output_file_name_of_previous_database = output_file_name_of_previous_run
+input_new_GISAID_fasta_genome =	input_fasta_data_file
+input_new_GISAID_metadata = input_metadata_file
 ```
   Calculation 2 is used to update an already existing database. It takes 4 input values, as shown above.  It needs the directory_of_existing_SGV_database and its output_file_name. The GISAID ID, rather than sequence name will be used as sequence identifier in this calculation.
 
 #### Pipeline 3. Making an SGV database with a given FASTA file, using sequence names as sequence ID.
 ```
-	calculation = 3
-	input_fasta_file = multiple_fasta_file
+calculation = 3
+input_fasta_file = multiple_fasta_file
 ```
   Calculation 3 is NOT for data downloaded from GISAID database, but for the case for general FASTA-format sequence data, such as the data downloaded from other databases such as GenBank. The sequence names in multiple_fasta_file will be directly used as sequence identifiers. The sequence name should be a string with only number, character and underbar. Space in sequence names is not allowed.
 
 #### Pipeline 4. Making an SGV database with the “raw_variants.for_each.all.txt” file.
 ```
-	calculation = 4
-	input_raw_variation_file = input.raw_variants.for_each.all.txt
+calculation = 4
+input_raw_variation_file = input.raw_variants.for_each.all.txt
 ```
   Calculation 4 calculates SGV database from “input.raw_variants.for_each.all.txt” file, that is obtained by other runs.
 
 #### Pipeline 5. Extracting a subset of the SGV database based on the selected ID.
 ```
-	calculation = 5
-	GISAID_ID_list_file = gisaid_id_list_file
-	input_GISAID_fasta_genome_file2 = input_fasta_data_file
-	input_GISAID_metadata_file2 = input_metadata_file
+calculation = 5
+GISAID_ID_list_file = gisaid_id_list_file
+input_GISAID_fasta_genome_file2 = input_fasta_data_file
+input_GISAID_metadata_file2 = input_metadata_file
 ```
   Calculation 5 reads a “gisaid_id_list_file”, and generates a database of the GISAID IDs that is included in the “gisaid_id_list_file” only. It also needs “input_GISAID_fasta_genome_file2” and “input_GISAID_metadata_file2”. 
 
 #### Pipeline 6. Extracting a FASTA sequences based on a given a GISAID ID list file.
 ```
-	calculation = 6
-	GISAID_ID_list_file = gisaid_id_list_file
-	input_GISAID_fasta_genome_file2 = input_fasta_data_file
-	input_GISAID_metadata_file2 = input_metadata_file
+calculation = 6
+GISAID_ID_list_file = gisaid_id_list_file
+input_GISAID_fasta_genome_file2 = input_fasta_data_file
+input_GISAID_metadata_file2 = input_metadata_file
 ```
   Calculation 6 extract sequences listed in gisaid_id_list_file, and it will NOT generate the SGV database. 
 
 #### Pipeline 7. Extracting genes from a list of GISAID genomes based on a given GISAID ID list file.
 ```
-	calculation = 7
-	GISAID_ID_list_file = gisaid_id_list_file
-	input_GISAID_fasta_genome_file2 =  input_fasta_data_file
-	input_GISAID_metadata_file2 = input_metadata_file
-	gene_annotation = default
-	#default or the custom gene annotation file name
+calculation = 7
+GISAID_ID_list_file = gisaid_id_list_file
+input_GISAID_fasta_genome_file2 =  input_fasta_data_file
+input_GISAID_metadata_file2 = input_metadata_file
+gene_annotation = default
+#default or the custom gene annotation file name
 ```
   Calculation 7 reads a sequence list file gisaid_id_list_file and a gene annotation file gene_annotation. If you give “default” to gene_annotation, the gene annotation file in the reference folder (“NC_045512.anno.txt”) in the software will be used. If you hope to extract the genetic regions that are defined by yourself, please give the directory and file name to gene_annotation_file.
 
