@@ -52,14 +52,14 @@ sgv-caller.pl -i your_own_configuration_file
 ## 6. Configuration file
   Every time when you run SGV-caller, software firstly reads the configuration file “sgv-caller.conf” for the necessary information it needs. calculation 1-8 in “sgv-caller.conf” corresponding to the pipelines 1-8, which have different functions as follows:
 
-Pipeline 1. Making a SGV database start from FASTA sequence and metadata downloaded from GISAID. 
-Pipeline 2. Updating existing database with newly downloaded data from GISAID. 
-Pipeline 3. Making an SGV database with a given FASTA file, using sequence names as sequence ID.
-Pipeline 4. Making an SGV database with the “raw_variants.for_each.all.txt” file.
-Pipeline 5. Extracting a subset of the SGV database based on the selected ID.
-Pipeline 6. Extracting a FASTA sequences based on a given a GISAID ID list file.
-Pipeline 7. Extracting genes from a list of GISAID genomes based on a given GISAID ID list file.
-Pipeline 8. Extracting the amino acid replacement information from protein sequences.
+##### Pipeline 1. Making a SGV database start from FASTA sequence and metadata downloaded from GISAID. 
+##### Pipeline 2. Updating existing database with newly downloaded data from GISAID. 
+##### Pipeline 3. Making an SGV database with a given FASTA file, using sequence names as sequence ID.
+##### Pipeline 4. Making an SGV database with the “raw_variants.for_each.all.txt” file.
+##### Pipeline 5. Extracting a subset of the SGV database based on the selected ID.
+##### Pipeline 6. Extracting a FASTA sequences based on a given a GISAID ID list file.
+##### Pipeline 7. Extracting genes from a list of GISAID genomes based on a given GISAID ID list file.
+##### Pipeline 8. Extracting the amino acid replacement information from protein sequences.
 
 ### 6.1 output_file_name
 output_file_name is the run name, which is necessary for pipelines 1-8. It should be a string with only characters, numbers and underbar. Any types of space are not allowed.
