@@ -51,14 +51,47 @@ sgv-caller.pl -i your_own_configuration_file
 ```
 ## 6. Configuration file
   Every time when you run SGV-caller, software firstly reads the configuration file “sgv-caller.conf” for the necessary information it needs. calculation 1-8 in “sgv-caller.conf” corresponding to the pipelines 1-8, which have different functions as follows:
->Pipeline 1. Making a SGV database start from FASTA sequence and metadata downloaded from GISAID. 
->Pipeline 2. Updating existing database with newly downloaded data from GISAID. 
->Pipeline 3. Making an SGV database with a given FASTA file, using sequence names as sequence ID.
->Pipeline 4. Making an SGV database with the “raw_variants.for_each.all.txt” file.
->Pipeline 5. Extracting a subset of the SGV database based on the selected ID.
->Pipeline 6. Extracting a FASTA sequences based on a given a GISAID ID list file.
->Pipeline 7. Extracting genes from a list of GISAID genomes based on a given GISAID ID list file.
->Pipeline 8. Extracting the amino acid replacement information from protein sequences.
+
+Pipeline 1. Making a SGV database start from FASTA sequence and metadata downloaded from GISAID. 
+Pipeline 2. Updating existing database with newly downloaded data from GISAID. 
+Pipeline 3. Making an SGV database with a given FASTA file, using sequence names as sequence ID.
+Pipeline 4. Making an SGV database with the “raw_variants.for_each.all.txt” file.
+Pipeline 5. Extracting a subset of the SGV database based on the selected ID.
+Pipeline 6. Extracting a FASTA sequences based on a given a GISAID ID list file.
+Pipeline 7. Extracting genes from a list of GISAID genomes based on a given GISAID ID list file.
+Pipeline 8. Extracting the amino acid replacement information from protein sequences.
+
+### 6.1 output_file_name
+output_file_name is the run name, which is necessary for pipelines 1-8. It should be a string with only characters, numbers and underbar. Any types of space are not allowed.
+
+### 6.2 reference genome related options
+Pipelines 1-5 needs reference genome, as well as its annotation information to annotate the nucleotide variations to codon and amino acid level. By default, SGV-caller takes Wuhan-hu-1 (RefSeq: NC_045512.2) as reference genome. use_default_reference is asking whether you will use the default reference genome or not. It takes the value of “yes” or “no”. If use_default_reference = yes, the default reference genome Wuhan-hu-1 will be used. If use_default_reference = no, the following three files are necessary to run SGV-caller: 
+```
+custom_reference_genome
+custom_codon_fasta_annotation_file
+custom_rna_annotation
+```
+custom_reference_genome is the directory and file name of the custom reference genome file. This file should contain a single sequence, and its sequence name had better not overlap with the sequence name in the fasta data file.
+custom_codon_fasta_annotation_file is the directory and file name of the custom codon annotation file. Its format is:
+```
+S	21563..25384
+ORF3a	25393..26220
+E	26245..26472
+M	26523..27191
+nsp10	13025..13441
+nsp11	13442..13480
+nsp12	13442..13468,13468..16236
+…
+```
+	Comma can be used to separate different genetic regions.
+custom_rna_annotation is the directory and file name of the custom RNA annotation file. Its format is:
+```
+5UTR	1..265
+3UTR	29675..29903
+Non_Coding_ORF1ab_S	21556..21562
+Non_Coding_S_ORF3a	25385..25392
+…
+```
 
 
 #######
