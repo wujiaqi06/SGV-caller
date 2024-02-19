@@ -18,6 +18,22 @@ If you want to install using the source code of the MAFFT suite, you can install
 ```
 export PATH=$PATH:/path/to/the/directory/where/MAFFT/installed
 ```
+## 3. Instalment 
+  Please download the SGV-caller from https://github.com/wujiaqi06/SGV-caller. You can also get it by running: 
+```
+git clone https://github.com/wujiaqi06/SGV-caller.git
+```
+	The SGV-caller is Perl software, which does not need compilation. First, you have to set the path to the directory of the SGV-caller as follows:
+```
+chmod 777 /path/to/the/directory/where/sgv-caller/installed/sgv-caller.pl
+export PATH=$PATH:/path/to/the/directory/where/sgv-caller/installed
+```
+  To use the SGV-caller, you have to copy the SGV-caller’s configuration file “sgv-caller.conf” into the directory containing the data to be analyzed. Then, set the suitables variables in “sgv-caller.conf”, and you can run SGV-caller by the following command:
+```
+sgv-caller.pl
+```
+
+
 
 #######
 Text that is not a quote
