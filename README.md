@@ -32,7 +32,23 @@ export PATH=$PATH:/path/to/the/directory/where/sgv-caller/installed
 ```
 sgv-caller.pl
 ```
+## 4. What can it do
+  The main purpose of SGV-caller is to generate the local database of genomic variations of SARS-CoV-2 using data downloaded from [GISAID database](https://www.gisaid.org/). Variations at the nucleotide, amino acid and codon level will be reported. It can be used to user-defined virus genome as well.
 
+## 5. How to run it
+  Firstly, please set path to the folder of SGV-caller by: 
+```
+export PATH=$PATH:Path_to_sgv_caller
+```
+  Then, copy configuration file “sgv-caller.conf” to the directory where you hope to generate the database, then modify the values of “sgv-caller.conf” file to tell software which calculation you hope to conduct and their input files, then run this in command line:
+```
+cd where/sgv-caller.conf/is/stored
+sgv-caller.pl
+```
+  By default, SGV-caller will search for the configuration file “sgv-caller.conf” in the database directory. If your configuration file has a different name, please run this command instead, then you can use your own configuration file:
+```
+sgv-caller.pl -i your_own_configuration_file
+```
 
 
 #######
