@@ -9,8 +9,8 @@ SGV-caller is software that can generate the local database on the genomic varia
   For Ubuntu user, the easiest way to install MAFFT is as follows:
 ```
 sudo apt-get -y install mafft
-```
-	If you use Mac, you can use brew (https://brew.sh/) to install it:
+
+If you use Mac, you can use [brew](https://brew.sh/) to install it:
 ```
 brew install mafft
 ```
