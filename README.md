@@ -217,3 +217,28 @@ MT810919.1	nsp12#P323L|S#D614G|S#T678I
 MT972245.1	nsp2#I120F|nsp12#P323L|S#S477N|S#D614G|ORF3c#K17R|N#RG203KR|ORF9c#GE50NE
 ```
   Besides these four folders, SGV-caller also generates three folders, which summarise the genomic variations for each annotated gene or RNA regions, which are summarised in Output_file_name_aa, Output_file_name_codon and Output_file_name_rna folder.
+
+## Examples
+Example data for each pipeline are prepared in "examples" folder. A example "sgv-caller.conf" is prepared as well, which the input data are already set for each pipelines.
+If you hope to try pipeline1, please copy "sgv-caller.conf" into "pipeline1" folder, then change:
+```
+output_file_name = your_output_run_name
+calculation = 1
+```
+Then you can run pipeline1 by the method described above.
+
+If you hope to run pipeline2, please firstly run example in pipeline1. Then modify
+```
+directory_of_previous_database = ../pipeline1
+output_file_name_of_previous_database =	your_output_run_name_for_pipeline1
+```
+Then you can run pipeline2 by the method described above.
+
+For other pipelies, only changing
+```
+output_file_name = your_output_run_name
+calculation = number_1_to_8
+```
+You can run it normally.
+
+Any lines in "sgv-caller.conf" start with "#" will be regarded as annotation lines, and will be ignored by software.
