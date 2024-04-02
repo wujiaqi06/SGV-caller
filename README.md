@@ -26,21 +26,20 @@ git clone https://github.com/wujiaqi06/SGV-caller.git
   The SGV-caller is Perl software, which does not need compilation. First, you have to set the path to the directory of the SGV-caller as follows:
 ```
 chmod 777 /path/to/the/directory/where/sgv-caller/installed/sgv-caller.pl
-export PATH=$PATH:/path/to/the/directory/where/sgv-caller/installed
 ```
-  To use the SGV-caller, you have to copy the SGV-caller’s configuration file “sgv-caller.conf” into the directory containing the data to be analyzed. Then, set the suitables variables in “sgv-caller.conf”, and you can run SGV-caller by the following command:
-```
-sgv-caller.pl
-```
+  To use the SGV-caller, you have to copy the SGV-caller’s configuration file “sgv-caller.conf” into the directory containing the data to be analyzed. Then, set the suitables variables in “sgv-caller.conf”.
+
 ## 4. What can it do
   The main purpose of SGV-caller is to generate the local database of genomic variations of SARS-CoV-2 using data downloaded from [GISAID database](https://www.gisaid.org/). Variations at the nucleotide, amino acid and codon level will be reported. It can be used to user-defined virus genome as well.
 
 ## 5. How to run it
-  Firstly, please set path to the folder of SGV-caller by: 
+  Firstly, please set path to the folder of SGV-caller and configure local environment by: 
 ```
-export PATH=$PATH:Path_to_sgv_caller
+export PATH=$PATH:/path/to/the/directory/where/sgv-caller/installed
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
 ```
-  Then, copy configuration file “sgv-caller.conf” to the directory where you hope to generate the database, then modify the values of “sgv-caller.conf” file to tell software which calculation you hope to conduct and their input files, then run this in command line:
+  Then, copy configuration file “sgv-caller.conf” to the directory where you hope to generate the database, then modify the values of “sgv-caller.conf” file to control software which calculation you want to conduct and their input files, then run this in command line:
 ```
 cd where/sgv-caller.conf/is/stored
 sgv-caller.pl
