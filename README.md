@@ -76,7 +76,7 @@ custom_codon_fasta_annotation_file
 custom_rna_annotation
 ```
 custom_reference_genome is the directory and filename of the custom reference genome file. This file should contain a single sequence and its sequence name should not overlap with the sequence name in the fasta data file.
-custom_codon_fasta_annotation_file is the directory and filename of the custom codon annotation file. Please note that columns are separated by tabs, NOT spaces. Its format is:
+custom_codon_fasta_annotation_file is the directory and filename of the custom codon annotation file. Its format is:
 ```
 S	21563..25384
 ORF3a	25393..26220
@@ -87,8 +87,10 @@ nsp11	13442..13480
 nsp12	13442..13468,13468..16236
 …
 ```
-Comma can be used to separate different genetic regions.
-custom_rna_annotation is the directory and filename of the custom RNA annotation file. Please note that columns are separated by tabs, NOT spaces. Its format is
+".." can be used to separate different genetic regions.
+Note that columns are separated by tabs, NOT spaces. Same for custom_rna_annotation.
+
+custom_rna_annotation is the directory and filename of the custom RNA annotation file. Its format is
 ```
 5UTR	1..265
 3UTR	29675..29903
