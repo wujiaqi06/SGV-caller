@@ -224,7 +224,7 @@ MT972245.1	nsp2#I120F|nsp12#P323L|S#S477N|S#D614G|ORF3c#K17R|N#RG203KR|ORF9c#GE5
 
 ## Examples
 Example data for each pipeline is prepared in the "examples" folder. An example "sgv-caller.conf" is also prepared with the input data already set for each pipeline.
-If you want to try pipeline1, please copy "sgv-caller.conf" into the "pipeline1" folder and modify it:
+If you want to try pipeline 1, please copy "sgv-caller.conf" into the "pipeline1" folder and modify it:
 ```
 output_file_name = your_output_run_name
 calculation = 1
@@ -236,7 +236,7 @@ If you want to run pipeline 2, first run the example in pipeline 1. Then change
 directory_of_previous_database = ../pipeline1
 output_file_name_of_previous_database =	your_output_run_name_for_pipeline1
 ```
-You can then run pipeline2 using the method described above.
+You can then run pipeline 2 using the method described above.
 
 For other pipelies, just change
 ```
