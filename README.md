@@ -123,6 +123,7 @@ calculation = 3
 input_fasta_file = multiple_fasta_file
 ```
   Calculation pipeline 3 is NOT for data downloaded from the GISAID database, but for general sequence data in FASTA format, such as data downloaded from other databases such as GenBank. The sequence names in the multiple_fasta_file are used directly as sequence identifiers. The sequence name should be a string containing only number, character and underscore. No spaces are allowed in sequence names.
+  It is recommended to use the NCBI accession number as the sequence name.
 
 #### Pipeline 4: makes the SGV database start from a file containing the raw variations of each sequence.
 ```
