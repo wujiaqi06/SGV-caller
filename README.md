@@ -24,46 +24,46 @@ SGV-Caller also requires xz to be installed in the system. In Linux systems, xz 
 brew install xz
 ```
 ## 3. Instalment 
-  Please download the SGV-caller from https://github.com/wujiaqi06/SGV-caller. You can also get it by running: 
+  Please download the SGV-caller from https://github.com/wujiaqi06/SGV-caller. You can also run it:
 ```
 git clone https://github.com/wujiaqi06/SGV-caller.git
 ```
-  The SGV-caller is Perl software, which does not need compilation. First, you have to set the path to the directory of the SGV-caller as follows:
+  The SGV-Caller is a Perl software that does not need to be compiled. First you have to set the path to the SGV-caller directory as follows:
 ```
 chmod 777 /path/to/the/directory/where/sgv-caller/installed/sgv-caller.pl
 ```
-  To use the SGV-caller, you have to copy the SGV-caller’s configuration file “sgv-caller.conf” into the directory containing the data to be analyzed. Then, set the suitables variables in “sgv-caller.conf”.
+  To use the SGV-caller, copy the SGV-caller configuration file "sgv-caller.conf" into the directory containing the data to be analysed. Then set the appropriate variables in "sgv-caller.conf".
 
 ## 4. What can it do
-  The main purpose of SGV-caller is to generate the local database of genomic variations of SARS-CoV-2 using data downloaded from [GISAID database](https://www.gisaid.org/). Variations at the nucleotide, amino acid and codon level will be reported. It can be used to user-defined virus genome as well.
+  The main purpose of SGV-caller is to generate the local database of genomic variations of SARS-CoV-2 using data downloaded from [GISAID database](https://www.gisaid.org/). Variations at nucleotide, amino acid and codon level will be reported. It can also be used for user-defined virus genomes.
 
 ## 5. How to run it
-  Firstly, please set path to the folder of SGV-caller and configure local environment by: 
+  First, set the path to the SGV-caller folder and configure the local environment: 
 ```
 export PATH=$PATH:/path/to/the/directory/where/sgv-caller/installed
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 ```
-  Then, copy configuration file “sgv-caller.conf” to the directory where you hope to generate the database, then modify the values of “sgv-caller.conf” file to control software which calculation you want to conduct and their input files, then run this in command line:
+  Then copy the configuration file "sgv-caller.conf" to the directory where you hope to generate the database, then modify the values of "sgv-caller.conf" file to control software which calculation you want to perform and its input files, then run this in command line:
 ```
 cd where/sgv-caller.conf/is/stored
 sgv-caller.pl
 ```
-  By default, SGV-caller will search for the configuration file “sgv-caller.conf” in the database directory. If your configuration file has a different name, please run this command instead, then you can use your own configuration file:
+  By default, SGV-caller searches for the configuration file "sgv-caller.conf" in the database directory. If your configuration file has a different name, please run this command instead, then you can use your own configuration file:
 ```
 sgv-caller.pl -i your_own_configuration_file
 ```
 ## 6. Configuration file
-  Every time when you run SGV-caller, software firstly reads the configuration file “sgv-caller.conf” for the necessary information it needs. calculation 1-8 in “sgv-caller.conf” corresponding to the pipelines 1-8, which have different functions as follows:
+  Each time SGV-caller is started, the software first reads the configuration file "sgv-caller.conf" to obtain the necessary information. Calculations 1-8 in "sgv-caller.conf" correspond to calculation pipelines 1-8, which have different functions as follows:
 ```
-Pipeline 1. Making a SGV database start from FASTA sequence and metadata downloaded from GISAID. 
-Pipeline 2. Updating existing database with newly downloaded data from GISAID. 
-Pipeline 3. Making an SGV database with a given FASTA file, using sequence names as sequence ID.
-Pipeline 4. Making an SGV database with the “raw_variants.for_each.all.txt” file.
-Pipeline 5. Extracting a subset of the SGV database based on the selected ID.
-Pipeline 6. Extracting a FASTA sequences based on a given a GISAID ID list file.
-Pipeline 7. Extracting genes from a list of GISAID genomes based on a given GISAID ID list file.
-Pipeline 8. Extracting the amino acid replacement information from protein sequences.
+Pipeline 1 reads the GISAID sequence and metadata files and generates an SGV database from scratch.
+Pipeline 2 updates an existing SGV database by comparing the old SGV database with the new GISAID data. 
+Pipeline 3 reads a FASTA-formatted sequence data and generates an SGV database from scratch.
+Pipeline 4 makes the SGV database start from a file containing the raw variations of each sequence. 
+Pipeline 5 generates the SGV database, which is a subset of the full GISAID data.
+Pipeline 6 extract the sequences, which is a subset of the full GISAID FASTA-sequence file.
+Pipeline 7 This pipeline extracts the genomic regions of some selected sequences from the GISAID genomes.
+Pipeline 8 This pipeline reads a FASTA-formatted protein sequence and maps it to a protein reference sequence.
 ```
 ### 6.1 output_file_name
 output_file_name is the run name, which is necessary for pipelines 1-8. It should be a string with only characters, numbers and underbar. Any types of space are not allowed.
