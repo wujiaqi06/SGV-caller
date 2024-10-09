@@ -169,13 +169,13 @@ protein_reference_sequence_file = NC_045512.2.S.fas
   Calculation pipeline 8 reads a protein sequence file as an input file (e.g. S.pep.fas.gz), a protein reference sequence file (e.g. NC_045512.2.S.fas) and extracts the amino acid replacement information directly. 
 
 ## 7.1 Output files
-  Output_file_name.raw_variants.for_each.all.txt: the raw variations at nucleotide level for each genome.
-  Output_file_name.variations.info.sum.txt: the information for each variation, including snp locations, reference snps, alternative snps, reference codons, alternative codons, reference amino acids, alternative amino acids, etc. 	
-  Output_file_name.raw_variants.static.txt: quality of each genome, including number of differences to the reference genome, number of undetermined nucleotides of the whole genome and number of undetermined nucleotides of Spike protein, respectively.
-  Output_file_name.s.static.txt: quality of Spike protein region only.
-  Output_file_name.deletion.txt and Output_file_name.insertion.txt: the information of deletions and insertions of the genomes analysed.
-  Output_file_name.count_aa.txt, Output_file_name.count_codon.txt, Output_file_name.count_snp.txt: the counting of each variations at amino acid, codon and nucleotide level.
-  Output_file_name.options.txt: the command options that are actually run during the calculation.
+  "Output_file_name.raw_variants.for_each.all.txt": the raw variation at the nucleotide level for each genome.
+  "Output_file_name.variations.info.sum.txt": the information for each variation, including SNP locations, reference SNPs, alternative SNPs, reference codons, alternative codons, reference amino acids, alternative amino acids, etc. 	
+  "Output_file_name.raw_variants.static.txt": the quality of each genome, including the number of differences to the reference genome, the number of undetermined nucleotides of the whole genome, and the number of undetermined nucleotides of the spike protein.
+  "Output_file_name.s.static.txt": the quality of the spike protein region only.
+  "Output_file_name.deletion.txt" and "Output_file_name.insertion.txt": information on deletions and insertions in the genomes analysed.
+  "Output_file_name.count_aa.txt", "Output_file_name.count_codon.txt", "Output_file_name.count_snp.txt": the count of each variation at amino acid, codon and nucleotide level.
+  "Output_file_name.options.txt": the command options that are actually executed during the calculation.
 
 ## 7.2 Output folders
 Main output folders:
@@ -185,16 +185,16 @@ Main output folders:
   Output_file_name_genomic_variation_long_table
   Output_file_name_genomic_variation_var_for_each_ID
 ``` 
-  All of these folders Contains 3 files, aa.txt, codon.txt, snp.txt. They are the summarized genetic variations at amino acid, codon and nucleotide level, with slightly different data format. 
+  Each of these folders contains 3 files, aa.txt, codon.txt, snp.txt. These are the summarised genetic variations at amino acid, codon and nucleotide level, with a slightly different data format. 
 ##### “Output_file_name_genomic_variation” 
-summarized genetic variations by haplotypes. aa.txt in Output_file_name_genomic_variation folder:
+Genetic variation summarised by haplotype. aa.txt in the "Output_file_name_genomic_variation" folder:
 ```
 nsp2#I120F|nsp12#P323L|S#S477N|S#D614G|N#RG203KR|ORF9c#GE50NE	1	MW155300.1
 nsp2#I120F|nsp12#P323L|nsp12#K718N|S#S477N|S#D614G|N#RG203KR|ORF9c#GE50NE	1	MW154115.1
 nsp2#I120F|nsp12#P323L|S#S477N|S#D614G|ORF3c#K17R|N#RG203KR|ORF9c#GE50NE	1	MT972245.1
 ```
 ##### “Output_file_name_genomic_variation_ID_unique” 
-summarizes genetic variations by variations. aa.txt in Output_file_name_genomic_variation_ID_unique folder:
+Genetic variation summarised by variation. aa.txt in the "Output_file_name_genomic_variation_ID_unique" folder:
 ```
 M#L102LZ	1	OU811303.1
 N#A211V	1	OD900734.1
@@ -203,8 +203,8 @@ N#D288N	1	ON577819.1
 N#D343G	1	OW518434.1
 ```
 ##### “Output_file_name_genomic_variation_long_table” 
-contains only two columns, which are the variations and genomic IDs pairs. This format is suitable for analyzing by R software or bash commands.
-Example: aa.txt in Output_file_name_genomic_variation_long_table folder:
+contains only two columns, the variation and genomic ID pairs. This format is suitable for analysis by R software or bash commands.
+Example: aa.txt in "Output_file_name_genomic_variation_long_table" folder:
 ```
 E#T9I	OW513133.1
 E#T9I	ON556126.1
@@ -220,29 +220,29 @@ MT451742.1	nsp4#F308Y|ORF3a#G196V|ORF8#L84S|N#P13L|ORF9b#P10S|N#S197L|ORF9c#Q44*
 MT810919.1	nsp12#P323L|S#D614G|S#T678I
 MT972245.1	nsp2#I120F|nsp12#P323L|S#S477N|S#D614G|ORF3c#K17R|N#RG203KR|ORF9c#GE50NE
 ```
-  Besides these four folders, SGV-caller also generates three folders, which summarise the genomic variations for each annotated gene or RNA regions, which are summarised in Output_file_name_aa, Output_file_name_codon and Output_file_name_rna folder.
+  In addition to these four folders, SGV-caller also generates three folders summarising the genomic variations for each annotated gene or RNA region, which are summarised in the Output_file_name_aa, Output_file_name_codon and Output_file_name_rna folders.
 
 ## Examples
-Example data for each pipeline are prepared in "examples" folder. A example "sgv-caller.conf" is prepared as well, which the input data are already set for each pipelines.
-If you hope to try pipeline1, please copy "sgv-caller.conf" into "pipeline1" folder, then change:
+Example data for each pipeline is prepared in the "examples" folder. An example "sgv-caller.conf" is also prepared with the input data already set for each pipeline.
+If you want to try pipeline1, please copy "sgv-caller.conf" into the "pipeline1" folder and modify it:
 ```
 output_file_name = your_output_run_name
 calculation = 1
 ```
-Then you can run pipeline1 by the method described above.
+You can then run pipeline 1 using the method described above.
 
-If you hope to run pipeline2, please firstly run example in pipeline1. Then modify
+If you want to run pipeline 2, first run the example in pipeline 1. Then change
 ```
 directory_of_previous_database = ../pipeline1
 output_file_name_of_previous_database =	your_output_run_name_for_pipeline1
 ```
-Then you can run pipeline2 by the method described above.
+You can then run pipeline2 using the method described above.
 
-For other pipelies, only changing
+For other pipelies, just change
 ```
 output_file_name = your_output_run_name
 calculation = number_1_to_8
 ```
 You can run it normally.
 
-Any lines in "sgv-caller.conf" start with "#" will be regarded as annotation lines, and will be ignored by software.
+Any lines in "sgv-caller.conf" that start with "#" are considered annotation lines and will be ignored by the software.
