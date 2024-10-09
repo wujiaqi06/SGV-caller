@@ -66,17 +66,17 @@ Pipeline 7 This pipeline extracts the genomic regions of some selected sequences
 Pipeline 8 This pipeline reads a FASTA-formatted protein sequence and maps it to a protein reference sequence.
 ```
 ### 6.1 output_file_name
-output_file_name is the run name, which is necessary for pipelines 1-8. It should be a string with only characters, numbers and underbar. Any types of space are not allowed.
+output_file_name is the run name needed for pipelines 1-8. It should be a string containing only letters, numbers and underscores. No spaces are allowed.
 
 ### 6.2 reference genome related options
-Pipelines 1-5 needs reference genome, as well as its annotation information to annotate the nucleotide variations to codon and amino acid level. By default, SGV-caller takes Wuhan-hu-1 (RefSeq: NC_045512.2) as reference genome. use_default_reference is asking whether you will use the default reference genome or not. It takes the value of “yes” or “no”. If use_default_reference = yes, the default reference genome Wuhan-hu-1 will be used. If use_default_reference = no, the following three files are necessary to run SGV-caller: 
+Pipelines 1-5 require a reference genome and its annotation information to annotate nucleotide variations at the codon and amino acid level. By default, SGV-caller uses Wuhan-hu-1 (RefSeq: NC_045512.2) as reference genome. use_default_reference asks if you want to use the default reference genome or not. It takes the value "yes" or "no". If use_default_reference = yes, the default reference genome Wuhan-hu-1 will be used. If use_default_reference = no, the following three files are required to run SGV-caller: 
 ```
 custom_reference_genome
 custom_codon_fasta_annotation_file
 custom_rna_annotation
 ```
-custom_reference_genome is the directory and file name of the custom reference genome file. This file should contain a single sequence, and its sequence name had better not overlap with the sequence name in the fasta data file.
-custom_codon_fasta_annotation_file is the directory and file name of the custom codon annotation file. Its format is:
+custom_reference_genome is the directory and filename of the custom reference genome file. This file should contain a single sequence and its sequence name should not overlap with the sequence name in the fasta data file.
+custom_codon_fasta_annotation_file is the directory and filename of the custom codon annotation file. Its format is:
 ```
 S	21563..25384
 ORF3a	25393..26220
@@ -87,8 +87,8 @@ nsp11	13442..13480
 nsp12	13442..13468,13468..16236
 …
 ```
-	Comma can be used to separate different genetic regions.
-custom_rna_annotation is the directory and file name of the custom RNA annotation file. Its format is:
+Comma can be used to separate different genetic regions.
+custom_rna_annotation is the directory and filename of the custom RNA annotation file. Its format is
 ```
 5UTR	1..265
 3UTR	29675..29903
@@ -97,17 +97,17 @@ Non_Coding_S_ORF3a	25385..25392
 …
 ```
 ### 6.3 Specification of different pipelines
-  The calculation value in the “sgv-caller.conf” takes values from 1 to 8, corresponding to different pipelines. In example folder, you can find examples and testing data of “sgv-caller.conf” for pipelines 1-8.
+  The calculation value in "sgv-caller.conf" takes values from 1 to 8, corresponding to different pipelines. In the example folder you will find examples and test data of "sgv-caller.conf" for pipelines 1-8.
 
-#### Pipeline 1. Making a SGV database start from FASTA sequence and metadata downloaded from GISAID. 
+#### Pipeline 1: reads the GISAID sequence and metadata files and generates an SGV database from scratch.
 ```
 calculation = 1
 input_GISAID_fasta_genome_file = input_fasta_data_file
 input_GISAID_metadata_file = input_metadata_file
 ```
-  Calculation 1 calculates the local database from the GISAID FASTA sequence data file and metadata file, which are specified by “input_GISAID_fasta_genome_file” and “input_GISAID_metadata_file”. Either data downloaded from “Genomic epidemiology" or "Download packages" can be used directly without unzipping. The GISAID ID, rather than sequence name will be used as sequence identifier in this calculation.
+  Calculation pipeline 1 calculates the local database from the GISAID FASTA sequence data file and metadata file specified by "input_GISAID_fasta_genome_file" and "input_GISAID_metadata_file". Data downloaded from either Genomic Epidemiology or Download Packages can be used directly without unzipping. The GISAID ID, rather than the sequence name, is used as the sequence identifier in this calculation.
 
-#### Pipeline 2. Updating existing database with newly downloaded data from GISAID.
+#### Pipeline 2: updates an existing SGV database by comparing the old SGV database with the new GISAID data. 
 ```
 calculation = 2
 directory_of_previous_database = directory_of_existing_SGV_database
@@ -115,41 +115,41 @@ output_file_name_of_previous_database = output_file_name_of_previous_run
 input_new_GISAID_fasta_genome =	input_fasta_data_file
 input_new_GISAID_metadata = input_metadata_file
 ```
-  Calculation 2 is used to update an already existing database. It takes 4 input values, as shown above.  It needs the directory_of_existing_SGV_database and its output_file_name. The GISAID ID, rather than sequence name will be used as sequence identifier in this calculation.
+  Calculation pipeline 2 is used to update an existing database. It takes 4 input values as shown above.  It requires the directory of the existing SGV database and its output file name. The GISAID ID, rather than the sequence name, is used as the sequence identifier in this calculation.
 
-#### Pipeline 3. Making an SGV database with a given FASTA file, using sequence names as sequence ID.
+#### Pipeline 3: reads a FASTA-formatted sequence data and generates an SGV database from scratch.
 ```
 calculation = 3
 input_fasta_file = multiple_fasta_file
 ```
-  Calculation 3 is NOT for data downloaded from GISAID database, but for the case for general FASTA-format sequence data, such as the data downloaded from other databases such as GenBank. The sequence names in multiple_fasta_file will be directly used as sequence identifiers. The sequence name should be a string with only number, character and underbar. Space in sequence names is not allowed.
+  Calculation pipeline 3 is NOT for data downloaded from the GISAID database, but for general sequence data in FASTA format, such as data downloaded from other databases such as GenBank. The sequence names in the multiple_fasta_file are used directly as sequence identifiers. The sequence name should be a string containing only number, character and underscore. No spaces are allowed in sequence names.
 
-#### Pipeline 4. Making an SGV database with the “raw_variants.for_each.all.txt” file.
+#### Pipeline 4: makes the SGV database start from a file containing the raw variations of each sequence.
 ```
 calculation = 4
 input_raw_variation_file = input.raw_variants.for_each.all.txt
 ```
-  Calculation 4 calculates SGV database from “input.raw_variants.for_each.all.txt” file, that is obtained by other runs.
+  Calculation pipeline 4 calculates the SGV database from the input.raw_variants.for_each.all.txt file obtained from other runs.
 
-#### Pipeline 5. Extracting a subset of the SGV database based on the selected ID.
+#### Pipeline 5: generates the SGV database, which is a subset of the full GISAID data.
 ```
 calculation = 5
 GISAID_ID_list_file = gisaid_id_list_file
 input_GISAID_fasta_genome_file2 = input_fasta_data_file
 input_GISAID_metadata_file2 = input_metadata_file
 ```
-  Calculation 5 reads a “gisaid_id_list_file”, and generates a database of the GISAID IDs that is included in the “gisaid_id_list_file” only. It also needs “input_GISAID_fasta_genome_file2” and “input_GISAID_metadata_file2”. 
+  Calculation pipeline 5 reads a "gisaid_id_list_file" and generates a database of GISAID IDs, which is only contained in the "gisaid_id_list_file". It also requires "input_GISAID_fasta_genome_file2" and "input_GISAID_metadata_file2". 
 
-#### Pipeline 6. Extracting a FASTA sequences based on a given a GISAID ID list file.
+#### Pipeline 6: extract the sequences, which is a subset of the full GISAID FASTA-sequence file.
 ```
 calculation = 6
 GISAID_ID_list_file = gisaid_id_list_file
 input_GISAID_fasta_genome_file2 = input_fasta_data_file
 input_GISAID_metadata_file2 = input_metadata_file
 ```
-  Calculation 6 extract sequences listed in gisaid_id_list_file, and it will NOT generate the SGV database. 
+  Pipeline 6 will extract sequences listed in the gisaid_id_list_file and will NOT generate the SGV database. 
 
-#### Pipeline 7. Extracting genes from a list of GISAID genomes based on a given GISAID ID list file.
+#### Pipeline 7: extracts the genomic regions of some selected sequences from the GISAID genomes.
 ```
 calculation = 7
 GISAID_ID_list_file = gisaid_id_list_file
@@ -158,15 +158,15 @@ input_GISAID_metadata_file2 = input_metadata_file
 gene_annotation = default
 #default or the custom gene annotation file name
 ```
-  Calculation 7 reads a sequence list file gisaid_id_list_file and a gene annotation file gene_annotation. If you give “default” to gene_annotation, the gene annotation file in the reference folder (“NC_045512.anno.txt”) in the software will be used. If you hope to extract the genetic regions that are defined by yourself, please give the directory and file name to gene_annotation_file.
+  Pipeline 7 reads a sequence list file gisaid_id_list_file and a gene annotation file gene_annotation. If you specify "default" for gene_annotation, the gene annotation file in the reference folder ("NC_045512.anno.txt") in the software will be used. If you wish to extract the gene regions you have defined, please specify the directory and filename to gene_annotation_file.
 
-#### Pipeline 8. Extracting the amino acid replacement information from protein sequences.
+#### Pipeline 8: reads a FASTA-formatted protein sequence and maps it to a protein reference sequence.
 ```
 calculation = 8
 protein_sequence_file = S.pep.fas.gz
 protein_reference_sequence_file = NC_045512.2.S.fas	
 ```
-  Calculation = 8 reads a protein sequence file as input file (e.g. S.pep.fas.gz), a protein reference sequence file (e.g. NC_045512.2.S.fas), and extracts the amino acid replacement information directly. 
+  Calculation pipeline 8 reads a protein sequence file as an input file (e.g. S.pep.fas.gz), a protein reference sequence file (e.g. NC_045512.2.S.fas) and extracts the amino acid replacement information directly. 
 
 ## 7.1 Output files
   Output_file_name.raw_variants.for_each.all.txt: the raw variations at nucleotide level for each genome.
