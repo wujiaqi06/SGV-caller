@@ -36,7 +36,7 @@ chmod 777 /path/to/the/directory/where/sgv-caller/installed/sgv-caller.pl
 ```
   To use the SGV-caller, copy the SGV-caller configuration file "sgv-caller.conf" into the directory containing the data to be analysed. Then set the appropriate variables in "sgv-caller.conf".
   
-  A "benchmark.pl" is prepared in the "SGV-caller/examples/benchmark/" folder to test the speed of the software. You can run it on a Linux system computer by:
+  A "benchmark.pl" is prepared in the "SGV-caller/examples/benchmark/" folder to test the speed of the software (written by Dr Kirill Kryukov in National Institute of Genetics, Japan). You can run it on a Linux system computer by:
 ```
 perl benchmark.pl
 ```
