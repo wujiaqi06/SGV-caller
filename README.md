@@ -35,6 +35,10 @@ git clone https://github.com/wujiaqi06/SGV-caller.git
 chmod 777 /path/to/the/directory/where/sgv-caller/installed/sgv-caller.pl
 ```
   To use the SGV-caller, copy the SGV-caller configuration file "sgv-caller.conf" into the directory containing the data to be analysed. Then set the appropriate variables in "sgv-caller.conf".
+  A "benchmark.pl" is prepared in the "SGV-caller/examples/benchmark/" folder to test the speed of the software. You can run it on a Linux system computer by:
+```
+perl benchmark.pl
+```
 
 ## 4. What can it do
   The main purpose of SGV-caller is to generate the local database of genomic variations of SARS-CoV-2 using data downloaded from [GISAID database](https://www.gisaid.org/). Variations at nucleotide, amino acid and codon level will be reported. It can also be used for user-defined virus genomes.
