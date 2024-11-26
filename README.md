@@ -35,10 +35,7 @@ git clone https://github.com/wujiaqi06/SGV-caller.git
 chmod 777 /path/to/the/directory/where/sgv-caller/installed/sgv-caller.pl
 ```
   To use the SGV-caller, copy the SGV-caller configuration file "sgv-caller.conf" into the directory containing the data to be analysed. Then set the appropriate variables in "sgv-caller.conf".
-  Version check for SGV-caller can be done by:
-```
-sgv-caller.pl -v
-```
+  
   A "benchmark.pl" is prepared in the "SGV-caller/examples/benchmark/" folder to test the speed of the software (written by Dr Kirill Kryukov in National Institute of Genetics, Japan). You can run it on a Linux system computer by:
 ```
 perl benchmark.pl
@@ -61,6 +58,10 @@ sgv-caller.pl
   By default, SGV-caller searches for the configuration file "sgv-caller.conf" in the database directory. If your configuration file has a different name, please run this command instead, then you can use your own configuration file:
 ```
 sgv-caller.pl -i your_own_configuration_file
+```
+Version check for SGV-caller can be done by:
+```
+sgv-caller.pl -v
 ```
 ## 6. Configuration file
   Each time SGV-caller is started, the software first reads the configuration file "sgv-caller.conf" to obtain the necessary information. Calculations 1-8 in "sgv-caller.conf" correspond to calculation pipelines 1-8, which have different functions as follows:
