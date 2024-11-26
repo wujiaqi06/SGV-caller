@@ -115,7 +115,7 @@ Non_Coding_S_ORF3a	25385..25392
 #### Pipeline 1: reads the GISAID sequence and metadata files and generates an SGV database from scratch.
 ```
 calculation = 1
-theads = 4
+threads = 4
 input_GISAID_fasta_genome_file = input_fasta_data_file
 input_GISAID_metadata_file = input_metadata_file
 ```
@@ -124,7 +124,7 @@ input_GISAID_metadata_file = input_metadata_file
 #### Pipeline 2: updates an existing SGV database by comparing the old SGV database with the new GISAID data. 
 ```
 calculation = 2
-theads = 4
+threads = 4
 directory_of_previous_database = directory_of_existing_SGV_database
 output_file_name_of_previous_database = output_file_name_of_previous_run
 input_new_GISAID_fasta_genome =	input_fasta_data_file
@@ -135,7 +135,7 @@ input_new_GISAID_metadata = input_metadata_file
 #### Pipeline 3: reads a FASTA-formatted sequence data and generates an SGV database from scratch.
 ```
 calculation = 3
-theads = 4
+threads = 4
 input_fasta_file = multiple_fasta_file
 ```
   Calculation pipeline 3 is NOT for data downloaded from the GISAID database, but for general sequence data in FASTA format, such as data downloaded from other databases such as GenBank. The sequence names in the multiple_fasta_file are used directly as sequence identifiers. The sequence name should be a string containing only number, character and underscore. No spaces are allowed in sequence names.
